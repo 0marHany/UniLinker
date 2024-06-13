@@ -27,6 +27,10 @@ const colSchema = new Schema({
         type: Number,
         required: true,
     },
+    imageUrl: {
+        type: String,
+        required: true,
+    },
     track: {
         type: String,
         required: true,
