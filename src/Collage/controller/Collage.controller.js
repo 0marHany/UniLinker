@@ -28,6 +28,7 @@ const addCollage = async (req, res) => {
             duration,
             budget,
             track,
+            imageUrl: `http://localhost:5000/${req.file.path}`,
         });
         await collage.save();
         res.status(StatusCodes.CREATED).json({ message: "succeed", data: collage });
