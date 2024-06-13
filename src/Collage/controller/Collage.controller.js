@@ -44,8 +44,7 @@ const putCollage = async (req, res) => {
         const { name, description, programs, duration, budget, track } = req.body;
 
         const data = await Collage.updateOne({ _id: id }, {
-            name, description, programs, duration, budget, track
-        })
+            name, description, programs, duration, budget, track,imageUrl:`http://localhost:5000/${req.file.path}`})
         res.status(StatusCodes.ACCEPTED).json({ message: "succeed", data })
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message })
