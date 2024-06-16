@@ -59,4 +59,16 @@ const deleteCollage = async (req, res) => {
         res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message })
     }
 }
-module.exports = { getAllCollage, addCollage, putCollage, deleteCollage }
+
+const getCollage = async (req, res) => {
+    try {
+        const { col_id } = req.params;
+        const data = await Collage.find({ _id: col_id });
+        res.status(StatusCodes.OK).json({ message: "succeed", data });
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message });
+    }
+};
+
+
+module.exports = { getAllCollage, addCollage, putCollage, deleteCollage,getCollage }
