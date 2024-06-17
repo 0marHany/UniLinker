@@ -14,7 +14,11 @@ const addEvent = async (req, res) => {
         console.log(req.body);
         const { name, details, date, location } = req.body;
         const event = new Event({
-            name, details, date, location
+            name, 
+            details,
+            date,
+            location,
+            imageUrl: `http://localhost:5000/${req.file.path}`
         });
         await event.save();
         res.status(StatusCodes.CREATED).json({ message: "succeed", data: event });
@@ -30,7 +34,7 @@ const putEvent = async (req, res) => {
         const { name, details, date, location } = req.body;
 
         const data = await Event.updateOne({ _id: id }, {
-            name, details, date, location
+            name, details, date, location, imageUrl: `http://localhost:5000/${req.file.path}`
         })
         res.status(StatusCodes.ACCEPTED).json({ message: "succeed", data })
     } catch (error) {
