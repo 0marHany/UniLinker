@@ -14,7 +14,12 @@ const addScholar = async (req, res) => {
     try {
         const { university, name, description, criteria, deadline } = req.body;
         const scolar = new Scolar({
-            university, name, description, criteria, deadline
+            university,
+            name,
+            description,
+            criteria, 
+            deadline,
+            imageUrl: `http://localhost:5000/${req.file.path}`
         })
         await scolar.save();
         res.status(StatusCodes.CREATED).json({ message: "succeed", data: scolar })
@@ -27,7 +32,12 @@ const putScholar = async (req, res) => {
     try {
         const { id } = req.params
         const { university, name, description, criteria, deadline } = req.body;
-        const data = await Scolar.updateOne({ _id: id }, { university, name, description, criteria, deadline })
+        const data = await Scolar.updateOne({ _id: id }, { university,
+                                                          name,
+                                                          description,
+                                                          criteria,
+                                                          deadline,
+                                                          imageUrl: `http://localhost:5000/${req.file.path}`})
         res.status(StatusCodes.OK).json({ message: "succeed", data })
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message });
