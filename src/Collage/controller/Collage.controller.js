@@ -69,6 +69,25 @@ const getCollage = async (req, res) => {
         res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message });
     }
 };
+const searchFun = async (req, res) => {
+    try {
+        const { search } = req.query;
+
+        let searchCriteria = {};
+
+        if (search) {
+            const fields = ["name"];
+            const regexSearch = fields.map(field => ({ [field]: { $regex: search } }));
+            searchCriteria = { $or: regexSearch };
+        }
+
+        const data = await Collage.find(searchCriteria).populate("university", "name");
+
+        res.status(StatusCodes.OK).json({ message: "succeed", data });
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message });
+    }
+};
 
 
-module.exports = { getAllCollage, addCollage, putCollage, deleteCollage,getCollage }
+module.exports = { getAllCollage, addCollage, putCollage, deleteCollage,getCollage,searchFun}
