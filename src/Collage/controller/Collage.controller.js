@@ -6,7 +6,7 @@ const getAllCollage = async (req, res) => {
         const { uni_id } = req.params
         const find = await Uni.findOne({ _id: uni_id })
         if (find) {
-            const data = await Collage.find({university:uni_id}).populate("university","name");
+            const data = await Collage.find({university:uni_id}).populate("university","name type");
             res.status(StatusCodes.ACCEPTED).json({ message: "succeed", data })
         } else {
             res.status(StatusCodes.NOT_FOUND).json({ message: "Univresity Not Found" })
@@ -63,7 +63,7 @@ const deleteCollage = async (req, res) => {
 const getCollage = async (req, res) => {
     try {
         const { col_id } = req.params;
-        const data = await Collage.find({ _id: col_id }).populate("university","name");
+        const data = await Collage.find({ _id: col_id }).populate("university","name type");
         res.status(StatusCodes.OK).json({ message: "succeed", data });
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message });
@@ -81,7 +81,7 @@ const searchFun = async (req, res) => {
             searchCriteria = { $or: regexSearch };
         }
 
-        const data = await Collage.find(searchCriteria).populate("university", "name");
+        const data = await Collage.find(searchCriteria).populate("university", "name type");
 
         res.status(StatusCodes.OK).json({ message: "succeed", data });
     } catch (error) {
