@@ -1,4 +1,4 @@
-const { getAllStudents, addStudent, signIn, removeall } = require("../controller/student.controller");
+const { getAllStudents, addStudent, signIn } = require("../controller/student.controller");
 
 const routes = require("express").Router();
 const validate = require('../../../common/valid');
@@ -8,7 +8,7 @@ routes.get("/student", getAllStudents)
 
 routes.post("/student",validate(addUserSchema), addStudent)
 routes.post("/signIn", validate(signInSchema),signIn)
-routes.delete('/student',removeall)
+
 
 
 module.exports = routes
