@@ -25,6 +25,9 @@ const studentSchema = new Schema({
             message: 'Passwords do not match'
         }
     },
+    role:{
+        type: String, required: true
+    }
 });
 
 studentSchema.pre('save', async function (next) {
