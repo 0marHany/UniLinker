@@ -18,7 +18,7 @@ const addStudent = async (req, res) => {
             res.status(StatusCodes.BAD_REQUEST).json({ message: "this email already exist" })
         }
         else {
-            const student = new Students({ firstName, lastName, email, track, password, rePassword });
+            const student = new Students({ firstName, lastName, email, track, password, rePassword, role:"user" });
             await student.save();
             res.status(StatusCodes.ACCEPTED).json({ message: "succeed", data: { firstName, lastName, email, track } })
         }
@@ -46,8 +46,8 @@ const signIn = async (req, res) => {
         res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message })
     }
 }
-const removeall=async(req,res)=>{
+const removeall = async (req, res) => {
     const data = await Students.deleteMany({})
     res.json(data)
 }
-module.exports = { getAllStudents, addStudent, signIn,removeall }
+module.exports = { getAllStudents, addStudent, signIn, removeall }
