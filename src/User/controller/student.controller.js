@@ -20,7 +20,7 @@ const addStudent = async (req, res) => {
         else {
             const student = new Students({ firstName, lastName, email, track, password, rePassword, role:"user" });
             await student.save();
-            res.status(StatusCodes.ACCEPTED).json({ message: "succeed", data: { firstName, lastName, email, track } })
+            res.status(StatusCodes.ACCEPTED).json({ message: "succeed", data: { firstName, lastName, email, track, role: "user" } })
         }
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message })
@@ -34,8 +34,8 @@ const signIn = async (req, res) => {
         if (student) {
             const match = await bcrypt.compare(password, student.password);
             if (match) {
-                const { firstName, lastName, email, track } = student
-                res.status(StatusCodes.ACCEPTED).json({ message: "succeed", data: { firstName, lastName, email, track } })
+                const { firstName, lastName, email, track, role } = student
+                res.status(StatusCodes.ACCEPTED).json({ message: "succeed", data: { firstName, lastName, email, track, role } })
             }
             else
                 res.status(StatusCodes.FORBIDDEN).json({ message: "password is not correct" })
@@ -46,8 +46,5 @@ const signIn = async (req, res) => {
         res.status(StatusCodes.BAD_REQUEST).json({ message: "failed", error: error.message })
     }
 }
-const removeall = async (req, res) => {
-    const data = await Students.deleteMany({})
-    res.json(data)
-}
-module.exports = { getAllStudents, addStudent, signIn, removeall }
+
+module.exports = { getAllStudents, addStudent, signIn }
