@@ -6,7 +6,7 @@ const routes =require("express").Router();
 
 routes.get("/scholar",getAllScholar);
 routes.post("/scholar",Upload.single('imageUrl'),addScholar);
-routes.put("/scholar/:id",putScholar);
+routes.put("/scholar/:id",Upload.single('imageUrl'),putScholar);
 routes.delete("/scholar/:id",deleteScholar);
 
 
